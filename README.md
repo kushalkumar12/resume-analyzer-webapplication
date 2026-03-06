@@ -1,4 +1,5 @@
-Here is your **updated `README.md` code** with the **content from the attached manual added into it** as a **Usage Guide section**. I kept your GitHub style formatting clean so it looks professional.
+Here is your **updated `README.md` code** with the **content from the attached manual added into it** as a **Usage Guide section**. 
+I kept your GitHub style formatting clean so it looks professional.
 
 You can **replace your README.md with this**.
 
@@ -9,13 +10,15 @@ A basic application that evaluates the ATS match score between your resume (CV) 
 
 Evaluates the compatibility between a candidate's resume and a job description by generating an **ATS match score**.
 
-This application uses the **Google AI Studio API key** to access the **Gemini model**, analyze the resume and job description, and generate results along with a high-level candidate summary.
+This application uses the **Google AI Studio API key** to access the **Gemini model**, analyze the resume and job description,
+and generate results along with a high-level candidate summary.
 
 ---
 
 # 🐧 Smart Application Tracking System (ATS)
 
-A powerful, AI-driven tool designed to bridge the gap between job seekers and recruiters. This application evaluates resumes against specific **Job Descriptions (JD)** using **Google's Gemini AI**, providing:
+A powerful, AI-driven tool designed to bridge the gap between job seekers and recruiters.
+This application evaluates resumes against specific **Job Descriptions (JD)** using **Google's Gemini AI**, providing:
 
 - ATS Match Score
 - Missing Keywords
@@ -177,23 +180,12 @@ This tool helps job seekers:
 
 ---
 
-# 👨‍💻 Author
-
-**Kushal Kumar** 🐧
-
-GitHub:
-[https://github.com/kushalkumar12](https://github.com/kushalkumar12)
-
----
-
 # ⭐ Support
 
 If you found this project helpful, please give it a ⭐ on GitHub!
 
 ```
-
 ---
-
 ✅ This version now includes:
 - Your **original README**
 - **Manual instructions from the PDF** integrated as *How to Use*
