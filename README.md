@@ -1,3 +1,10 @@
+# ats-analyser-with-gemini-ai
+# A basic application that evaluates the ATS match score between your resume (CV) and a job description before you apply for a job.
+Evaluates the compatibility between a candidate's resume and a job description by generating an ATS match score.
+
+This application uses the Google AI Studio API key to access the Gemini model, analyze the resume and job description, and generate results along with a high-level candidate summary.
+
+
 # 🐧 Smart Application Tracking System (ATS)
 
 A powerful, AI-driven tool designed to bridge the gap between job seekers and recruiters. This application evaluates resumes against specific Job Descriptions (JD) using **Google's Gemini Pro AI**, providing a match score, identifying missing keywords, and generating a professional profile summary.
@@ -54,12 +61,4 @@ Made by **Kushal Kumar** 🐧<br>
 * Regular **ATS ANALYZER** has only option to **PDF** input
 ```bash
     python -m streamlit run app.py
-```
-* **ATS ANALYZER** with backgroud Image has only option to **PDF** (optional)
-```bash
-    python -m streamlit run app_b.py
-```
-* Advance **ATS ANALYZER** has both **PDF** and **Text** input
-```bash
-    python -m streamlit run app_adv.py
 ```
