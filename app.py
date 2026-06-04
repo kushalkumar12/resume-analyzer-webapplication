@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
+# --- APP VERSION ---
+APP_VERSION = "1.0.0"
+
 # --- PREFERRED MODELS CONFIGURATION ---
 PREFERRED_MODELS = [
     "gemini-1.5-pro",
@@ -136,11 +139,12 @@ with st.sidebar:
     st.divider()
     add_vertical_space(3)
     st.write("Made by Kushal Kumar 🐧.")
+    st.caption(f"v{APP_VERSION}")
 
 # --- MAIN APP INTERFACE ---
 
 st.title("Smart Application Tracking System")
-st.text("Round-Robin Failover Mode: Active")
+st.caption(f"v{APP_VERSION}  •  Round-Robin Failover Mode: Active")
 
 if not api_ready:
     st.info("👈 Enter a valid API Key in the sidebar to begin.")
