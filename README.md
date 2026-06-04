@@ -1,206 +1,197 @@
-Here is your **updated `README.md` code** with the **content from the attached manual added into it** as a **Usage Guide section**. 
-I kept your GitHub style formatting clean so it looks professional.
+# 📝 Smart ATS Analyser — Powered by Google Gemini AI
 
-You can **replace your README.md with this**.
-
-````md
-# ats-analyser-with-gemini-ai
-
-A basic application that evaluates the ATS match score between your resume (CV) and a job description before you apply for a job.
-
-Evaluates the compatibility between a candidate's resume and a job description by generating an **ATS match score**.
-
-This application uses the **Google AI Studio API key** to access the **Gemini model**, analyze the resume and job description,
-and generate results along with a high-level candidate summary.
+An intelligent **Applicant Tracking System (ATS) analyser** that cross-verifies your resume against a job description using **Google's Gemini AI**. Built with a **round-robin model failover engine** to ensure reliability even when individual models hit rate limits.
 
 ---
 
-# 🐧 Smart Application Tracking System (ATS)
+## ✨ Features
 
-A powerful, AI-driven tool designed to bridge the gap between job seekers and recruiters.
-This application evaluates resumes against specific **Job Descriptions (JD)** using **Google's Gemini AI**, providing:
+### 🔄 Round-Robin Model Failover
+Automatically tries models in priority order (`gemini-1.5-pro` → `gemini-1.5-flash` → `gemini-pro`). If the preferred model fails or hits a rate limit, the engine seamlessly falls over to the next available model — zero manual intervention required.
 
-- ATS Match Score
-- Missing Keywords
-- Professional Candidate Summary
+### 📊 Objective ATS Scoring
+Uses an enterprise-grade ATS prompt that:
+- Calculates experience duration accurately against the current date
+- Identifies hard skills, frameworks, tools, certifications, and degree requirements
+- Returns a structured **JD Match %** score
 
----
+### 🟩🟥🟨 Detailed Keyword Breakdown
+After analysis, results are shown in three colour-coded columns:
+| Column | Meaning |
+|---|---|
+| ✅ Matched Keywords | Skills present in **both** your resume and the JD |
+| ❌ Missing Keywords | Skills required by the JD but **absent** from your resume |
+| ⚠️ Extra Keywords | Skills in your resume that are **not mentioned** in the JD |
 
-# 🚀 Key Features
+### 📄 Dual Resume Input
+- **Upload PDF** — Automatically extracts text from any PDF resume via PyPDF2
+- **Paste Text** — Directly paste plain-text resume content
 
-### Dual Input Modes
-Analyze your resume by:
-- Uploading a **PDF Resume**
-- **Pasting Resume Text** directly
+### 🪵 Live Step-by-Step Status Log
+A real-time `st.status` panel displays each processing step:
+1. PDF/text conversion
+2. AI model request dispatch
+3. Model that successfully responded (with failover visibility)
+4. Data structuring for the report
 
-### Failover Logic
-Automatically cycles through available **Gemini models** if the primary model fails or hits a rate limit.
-
-### ATS Optimization
-Uses specialized prompts to simulate **enterprise ATS algorithms** used by recruiters.
-
-### Live Processing Logs
-Displays real-time background processing logs for transparency.
-
-### Keyword Analysis
-Identifies **missing technical skills and soft skills** from the job description.
-
----
-
-# 🛠️ Tech Stack
-
-Frontend  
-- **Streamlit**
-
-AI Engine  
-- **Google Generative AI (Gemini)**
-
-PDF Parsing  
-- **PyPDF2**
-
-Environment Management  
-- **Python-dotenv**
+### 🔐 API Key Validation
+Validates the Google AI Studio API key on entry and dynamically loads only compatible, preferred Gemini models for that key.
 
 ---
 
-# 📋 Prerequisites
+## 🛠️ Tech Stack
 
-Before running the application, ensure you have:
-
-1. A **Google AI Studio API Key**
-   
-   Get it from:  
-   https://aistudio.google.com/
-
-2. **Python 3.10 or higher**
+| Layer | Technology |
+|---|---|
+| Frontend | [Streamlit](https://streamlit.io/) |
+| AI Engine | [Google Generative AI — Gemini](https://ai.google.dev/) |
+| PDF Parsing | [PyPDF2](https://pypdf2.readthedocs.io/) |
+| Environment | [python-dotenv](https://pypi.org/project/python-dotenv/) |
+| Extras | [streamlit-extras](https://github.com/arnaudmiribel/streamlit-extras) |
 
 ---
 
-# ⚙️ Installation & Setup
+## 📋 Prerequisites
 
-### 1️⃣ Clone the Repository
+- **Python 3.10+**
+- A **Google AI Studio API Key** → [Get one here](https://aistudio.google.com/)
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/kushalkumar12/ats-analyser-with-gemini-ai.git
 cd ats-analyser-with-gemini-ai
-````
+```
 
----
+### 2. Install Dependencies
 
-### 2️⃣ Install Required Dependencies
+```bash
+pip install streamlit streamlit-extras google-generativeai PyPDF2 python-dotenv
+```
+
+Or using the requirements file:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+### 3. (Optional) Set API Key via `.env`
+
+Create a `.env` file in the root directory:
+
+```
+GOOGLE_API_KEY=your_api_key_here
+```
+
+> The app also accepts the API key directly via the sidebar UI — no `.env` file is required.
+
 ---
 
-### 3️⃣ Get Google Gemini API Key
-
-1. Open **Google AI Studio**
-2. Generate your **API Key**
-3. Copy the key
-
----
-
-# ▶️ Run the Application
+## ▶️ Run the Application
 
 ```bash
 python -m streamlit run app.py
 ```
 
----
-
-# 🌐 Live Application
-
-You can also try the hosted version:
-
-[https://ats-analyser-for-bug.streamlit.app/](https://ats-analyser-for-bug.streamlit.app/)
+The app will open at `http://localhost:8501`.
 
 ---
 
-# 📖 How to Use the ATS Analyzer
+## 📖 How to Use
 
-Follow these steps to evaluate your resume against a job description.
+1. **Enter your Google AI Studio API Key** in the sidebar  
+   → The app validates it and loads available Gemini models automatically
 
-1️⃣ Open any web browser.
+2. **Select Priority Model** from the sidebar dropdown  
+   → The failover engine will start with this model and cycle to others if needed
 
-2️⃣ Go to the application:
+3. **Paste the Job Description** into the JD text area
+
+4. **Choose your resume input method:**
+   - Upload a **PDF** file, or
+   - **Paste** plain text directly
+
+5. Click **"Calculate Objective ATS Score"**
+
+6. View your results:
+   - 🎯 **Match Score %** with a Strong/Low Match indicator
+   - 📝 **ATS Profile Summary** — objective AI-generated assessment
+   - ✅❌⚠️ **Keyword Breakdown** — Matched, Missing, and Extra skills
+
+---
+
+## 📊 Output Example
 
 ```
-https://ats-analyser-for-bug.streamlit.app/
+Match Score: 78%  →  Strong Match
+
+ATS Profile Summary:
+  Candidate has 4 years of relevant Java/Spring Boot experience.
+  Missing Kafka and JVM tuning expertise required by the JD.
+
+✅ Matched:   Java, Spring Boot, Microservices, REST APIs
+❌ Missing:   Apache Kafka, JVM Optimization, Memory Profiling
+⚠️ Extra:     Angular, MySQL, Docker Swarm
 ```
 
-3️⃣ Enter your **Google AI Studio API Key** in the API key field.
+---
 
-4️⃣ After entering the key, click anywhere outside the field to validate it.
+## 🏗️ Architecture
 
-5️⃣ Paste the **Job Description (JD)** from the job posting.
-
-6️⃣ Choose one input method for your resume:
-
-* **Upload PDF** – Upload your resume file
-* **Paste Resume Text** – Paste resume content directly
-
-7️⃣ Click **Analyze Resume**.
-
-8️⃣ The system will process the request using the **Gemini model**.
-
-9️⃣ After processing, the application will display:
-
-* **ATS Score (Percentage Match)**
-* **Missing Keywords**
-* **Candidate Profile Summary**
-
-This helps you optimize your resume before applying for the job. 
+```
+app.py
+├── get_available_models()      # Validates API key, filters preferred Gemini models
+├── get_gemini_response()       # Sends prompt to a specific Gemini model
+├── input_pdf_text()            # Extracts text from uploaded PDF via PyPDF2
+├── extract_json()              # Robust JSON parser (handles markdown code fences)
+├── execute_with_failover()     # Round-robin failover across available models
+│
+├── ats_prompt                  # Enterprise ATS evaluation prompt (low-token, high-accuracy)
+│
+└── Streamlit UI
+    ├── Sidebar: API key input, model selector
+    ├── Main: JD input, resume input (PDF/text)
+    ├── st.status: Live 4-step processing log
+    └── Results: Match score metric, profile summary, 3-column keyword breakdown
+```
 
 ---
 
-# 📊 Output Example
+## 🌐 Preferred Model Priority
 
-The system generates:
+The app automatically filters and prioritises models in this order:
 
-* ATS Match Score (e.g., **77% match**)
-* Missing Keywords from the job description
-* Professional Candidate Summary
+```python
+PREFERRED_MODELS = [
+    "gemini-1.5-pro",    # Highest accuracy
+    "gemini-1.5-flash",  # Fast & efficient
+    "gemini-pro"         # Fallback
+]
+```
 
-These insights help you improve your resume for better ATS compatibility.
-
----
-
-# 💡 Why This Tool?
-
-Many companies use **Applicant Tracking Systems (ATS)** to filter resumes before they reach recruiters.
-
-This tool helps job seekers:
-
-* Identify missing skills
-* Improve resume keywords
-* Increase chances of passing ATS screening
+If none of the preferred models are available for your API key, it falls back to the first 3 available models.
 
 ---
 
-# ⭐ Support
+## 💡 Why Use This Tool?
+
+Most companies use ATS software to filter resumes **before** they reach a human recruiter. This tool helps you:
+
+- 🎯 Know your exact match percentage before applying
+- 🔑 Identify the exact keywords you're missing
+- 📋 Understand how an ATS reads your resume
+- ✏️ Optimise your resume for higher shortlisting chances
+
+---
+
+## ⭐ Support
 
 If you found this project helpful, please give it a ⭐ on GitHub!
 
-```
----
-✅ This version now includes:
-- Your **original README**
-- **Manual instructions from the PDF** integrated as *How to Use*
-- **Cleaner GitHub structure**
-- **Better formatting for recruiters and developers**
-
 ---
 
-💡 If you want, I can also give you a **🔥 “Senior-level GitHub README version”** that includes:
-
-- Demo GIF  
-- Architecture diagram  
-- Project folder structure  
-- Screenshots  
-- Badges (Python, Gemini AI, Streamlit)
-
-That version **looks much more impressive to recruiters.**
-```
+*Made by Kushal Kumar 🐧*
