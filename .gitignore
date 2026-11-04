@@ -121,12 +121,21 @@ celerybeat.pid
 
 # Environments
 .env
+.env.*
 .venv
 env/
 venv/
 ENV/
 env.bak/
 venv.bak/
+
+# Uploads, resumes, and sensitive exports
+resumes/
+uploads/
+reports/
+*.pem
+*.key
+
 
 # Spyder project settings
 .spyderproject
